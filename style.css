@@ -149,6 +149,13 @@ h1, h2, h3, h4, h5, h6{
   height: 17px;
 }
 
+.star-icon1 {
+  width: 16px;
+  height: 16px;
+  margin-top: 4px;
+}
+
+
 
 .header {
   position: fixed;    /* фиксируем хедер сверху */
@@ -175,12 +182,13 @@ h1, h2, h3, h4, h5, h6{
   width: 100%;
 }
 
+
+/* Основная плашка и копии - одинаковый стиль */
 .header-balance {
   background-color: #161920;
   border-radius: 12px;
   overflow: hidden;
-  padding: 8px 20px; /* увеличим горизонтальные отступы для ширины */
-  text-align: center;
+  padding: 20px 20px;
   color: white;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   transition: transform 0.2s ease;
@@ -189,5 +197,130 @@ h1, h2, h3, h4, h5, h6{
   align-items: center;
   white-space: nowrap;
   font-size: 14px;
-  min-width: 150px; /* минимальная ширина карточки */
+  min-width: 100px; /* увеличьте ширину контейнера для размещения всех элементов */
+  gap: 16px; /* расстояние между плашками */
+}
+
+/* Основная плашка и копии */
+
+.balance-copy {
+  background-color: #0d0f13;
+  border-radius: 10px;
+  padding: 0 10px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: default;
+  min-width: 60px; /* ширина плашек */
+  color: white;
+}
+
+
+
+/* Синий кружок с плюсиком */
+.circle-plus {
+  width: 26px;
+  height: 26px;
+  background-color: #007BFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  position: relative;
+  flex-shrink: 0; /* не сжимать кружок */
+}
+
+/* Плюсик */
+.circle-plus::before,
+.circle-plus::after {
+  content: "";
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  border-radius: 2px;
+}
+
+.circle-plus::before {
+  width: 12px;
+  height: 2px;
+  top: 13px;
+  left: 8px;
+}
+
+.circle-plus::after {
+  width: 2px;
+  height: 12px;
+  top: 8px;
+  left: 13px;
+}
+
+
+
+
+
+
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto; /* горизонтальный скролл */
+  gap: 12px; /* расстояние между кнопками */
+  padding: 8px 12px;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE и Edge */
+  margin: 20px 0;
+}
+
+
+/* Стили для кастомного скролла (Chrome, Edge, Safari) */
+.scroll-container::-webkit-scrollbar {
+  height: 6px;
+  display: none;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 3px;
+}
+
+/* Овальные кнопки */
+.oval-button {
+  flex: 0 0 auto; /* не сжимать, не растягивать */
+  background-color: #161920;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+
+.oval-button:hover:not(.active) {
+  background-color: #464646;
+  transform: scale(1.05);
+}
+
+.oval-button:active:not(.active) {
+  background-color: #464646;
+  transform: scale(0.95);
+  outline: none;
+}
+
+/* Активная кнопка */
+.oval-button.active {
+  background-color: #464646;
+  transform: scale(1.1);
+  cursor: default;
+  pointer-events: auto;
 }
