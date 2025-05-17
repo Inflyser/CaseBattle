@@ -1,9 +1,41 @@
 body {
     margin: 0;
-    font-family: 'Istok Web';
+    font-family: "Istok Web", sans-serif;
     background-color: #0B0C10;
     font-size: 15px;
     padding: 20px;
     color: #ffffff;
     line-height: 1.6;
+    font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth; /* Плавная прокрутка */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6{
+  margin: 0;
+  padding: 0;
+}
+
+/* Скрыть скрол */
+
+.example::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0; 
+} 
+
+
+.text-container{
+  white-space: nowrap;
 }
