@@ -5,6 +5,7 @@ body {
     font-size: 15px;
     color: #ffffff;
     font-style: normal;
+    padding-top: 64px; 
 }
 
 html {
@@ -109,7 +110,8 @@ h1, h2, h3, h4, h5, h6{
   height: 76px;
   background-color: #0B0C10;
   display: flex;
-  justify-content: space-evenly; 
+  justify-content: center;
+  gap: 28px;
   align-items: center;
   border-top: 1.5px solid #262435;
   z-index: 1000;
@@ -124,7 +126,6 @@ h1, h2, h3, h4, h5, h6{
   font-size: 14px;
   color: #797a89;
   text-decoration: none;
-  gap: 4px;
 }
 
 .nav-item img {
@@ -149,3 +150,44 @@ h1, h2, h3, h4, h5, h6{
 }
 
 
+.header {
+  position: fixed;    /* фиксируем хедер сверху */
+  top: 0;
+  left: 0;
+  width: 100%;       /* растягиваем на всю ширину окна */
+  height: 64px;      /* высота плашки */
+  background-color: #0B0C10; /* фон, например, как у bottom-nav-up */
+  color: white;      /* цвет текста */
+  display: flex;
+  align-items: center; /* вертикальное центрирование текста */
+  padding: 0 20px;   /* внутренние отступы слева и справа */
+  z-index: 1000;     /* чтобы хедер был поверх другого контента */
+  box-sizing: border-box;
+  font-family: "Istok Web", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  justify-content: flex-end;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header-balance {
+  background-color: #161920;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 8px 20px; /* увеличим горизонтальные отступы для ширины */
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 14px;
+  min-width: 150px; /* минимальная ширина карточки */
+}
