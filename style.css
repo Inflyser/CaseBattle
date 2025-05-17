@@ -3,9 +3,7 @@ body {
     font-family: "Istok Web", sans-serif;
     background-color: #0B0C10;
     font-size: 15px;
-    padding: 20px;
     color: #ffffff;
-    line-height: 1.6;
     font-style: normal;
 }
 
@@ -62,4 +60,44 @@ h1, h2, h3, h4, h5, h6{
   font-family: "Istok Web", sans-serif;
   font-weight: 700;
   font-style: italic;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+
+.case-card {
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 12px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease;
+}
+
+.case-card:hover {
+  transform: scale(1.03);
+}
+
+.case-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.case-title {
+  margin: 10px 0 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.case-price {
+  color: #FFD700; /* Золотой */
+  font-weight: bold;
+  font-size: 14px;
 }
