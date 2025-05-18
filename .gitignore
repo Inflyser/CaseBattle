@@ -4,5 +4,5 @@ Pipfile.lock
 .env
 venv
 .venv
-.env
 __pycache__/
+

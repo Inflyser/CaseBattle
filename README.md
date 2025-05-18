@@ -12,7 +12,9 @@ uvicorn main:app --reload
 ```
 # Открой в браузере http://127.0.0.1:8000 — там будет твой сайт.
 
+```console
 #  pipenv shell
 #  python -m venv .venv
 #  .venv\Scripts\activate   
 #  python main.py
+```
