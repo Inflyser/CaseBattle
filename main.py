@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 import asyncio, os
 
@@ -11,6 +12,7 @@ from aiogram.types import Message, CallbackQuery, WebAppInfo
 from aiogram.filters import CommandStart
 from aiogram.enums import ParseMode
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.client.default import DefaultBotProperties
 
 from dotenv import load_dotenv
 
@@ -22,7 +24,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 def webapp_builder() -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
     builder.button(
-        text="", web_app=WebAppInfo(
+        text="Click", web_app=WebAppInfo(
         url="https://t.me/GiftsCaseBattlebot/GiftsCaseBattle"), # Replace with your web app URL
         )  
     
@@ -37,7 +39,9 @@ async def start(message: Message):
     )
         
 
-bot = Bot(BOT_TOKEN, parse_mod = ParseMode.HTML)
+bot = Bot(BOT_TOKEN,
+    default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+)
     
 dp = Dispatcher()
 dp.include_router(router)
@@ -52,7 +56,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://6197-89-110-75-82.ngrok-free.app"],  # Лучше указать точный адрес сайта на проде
+    allow_origins=["*"],  # Лучше указать точный адрес сайта на проде
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
