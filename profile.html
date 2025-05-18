@@ -28,7 +28,7 @@
         const responseElement = document.getElementById("response");
       
         try {
-          const res = await fetch("https://your-backend.onrender.com/ping");
+          const res = await fetch("http://127.0.0.1:4040");
           const data = await res.json();
           responseElement.textContent = "✅ Ответ: " + JSON.stringify(data);
         } catch (error) {
