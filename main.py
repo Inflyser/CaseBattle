@@ -27,7 +27,7 @@ def webapp_builder() -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
     builder.button(
         text="Click", web_app=WebAppInfo(
-        url="https://t.me/GiftsCaseBattlebot/GiftsCaseBattle"), # Replace with your web app URL
+        url="https://inflyser.github.io/CaseBattle/index.html"), # Replace with your web app URL
         )  
     
     return builder.as_markup()

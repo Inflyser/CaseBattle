@@ -5,4 +5,5 @@ Pipfile.lock
 venv
 .venv
 __pycache__/
+ngrok.yml
 
