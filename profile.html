@@ -22,13 +22,13 @@
 
     <button onclick="testConnection()">Проверить связь</button>
     <p id="response">Ответ будет здесь</p>
-
+    
     <script>
       async function testConnection() {
         const responseElement = document.getElementById("response");
       
         try {
-          const res = await fetch("https://6197-89-110-75-82.ngrok-free.app");
+          const res = await fetch("https://642f-89-110-75-82.ngrok-free.app/ping");
           const data = await res.json();
           responseElement.textContent = "✅ Ответ: " + JSON.stringify(data);
         } catch (error) {
