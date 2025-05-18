@@ -20,7 +20,22 @@
     <h2 style="text-align: center;">Test Mode</h2>
     <h2 style="text-align: center;">Профиль</h2>
 
-    
+    <button onclick="testConnection()">Проверить связь</button>
+    <p id="response">Ответ будет здесь</p>
+
+    <script>
+      async function testConnection() {
+        const responseElement = document.getElementById("response");
+      
+        try {
+          const res = await fetch("https://your-backend.onrender.com/ping");
+          const data = await res.json();
+          responseElement.textContent = "✅ Ответ: " + JSON.stringify(data);
+        } catch (error) {
+          responseElement.textContent = "❌ Ошибка запроса: " + error;
+        }
+      }
+    </script>
     
     <div class="bottom-nav">
       <a href="contests.html" class="nav-item">
