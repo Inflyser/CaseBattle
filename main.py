@@ -52,7 +52,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Лучше указать точный адрес сайта на проде
+    allow_origins=["https://6197-89-110-75-82.ngrok-free.app"],  # Лучше указать точный адрес сайта на проде
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
