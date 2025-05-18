@@ -13,12 +13,14 @@ from aiogram.filters import CommandStart
 from aiogram.enums import ParseMode
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.client.default import DefaultBotProperties
+from aiogram.client.session.aiohttp import AiohttpSession
 
 from dotenv import load_dotenv
 
 load_dotenv()
 # Load the bot token from the .env file
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+# Initialize FastAPI app
 
 
 def webapp_builder() -> InlineKeyboardBuilder:
@@ -35,21 +37,21 @@ router = Router()
 @router.message(CommandStart())
 async def start(message: Message):
         await message.reply(
-        reply_markup = webapp_builder()
+        "Привет! Нажми на кнопку ниже 👇",
+        reply_markup=webapp_builder()
     )
         
 
-bot = Bot(BOT_TOKEN,
+
+bot = Bot(
+    BOT_TOKEN,
+    # session=AiohttpSession(proxy="socks5://user:pass@host:port"),
     default=DefaultBotProperties(parse_mode=ParseMode.HTML)
 )
-    
+
 dp = Dispatcher()
 dp.include_router(router)
     
-    # await bot.delete_webhook(True)
-    # await dp.start_polling(bot)
-    
-
 
 
 app = FastAPI()
