@@ -37,7 +37,7 @@ router = Router()
 @router.message(CommandStart())
 async def start(message: Message):
         await message.reply(
-        "Привет! Нажми на кнопку ниже 👇",
+        "Привет! 👇",
         reply_markup=webapp_builder()
     )
         
