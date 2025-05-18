@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
 
 import asyncio, os
 
@@ -35,20 +36,15 @@ async def start(message: Message):
         reply_markup = webapp_builder()
     )
         
-async def main():
-    bot = Bot(BOT_TOKEN, parse_mod = ParseMode.HTML)
+
+bot = Bot(BOT_TOKEN, parse_mod = ParseMode.HTML)
     
-    dp = Dispatcher()
-    dp.include_router(router)
+dp = Dispatcher()
+dp.include_router(router)
     
-    await bot.delete_webhook(True)
-    await dp.start_polling(bot)
+    # await bot.delete_webhook(True)
+    # await dp.start_polling(bot)
     
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:    
-        print("Бот выключен.")
 
 
 
@@ -61,3 +57,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Запуск бота при старте
+@app.on_event("startup")
+async def on_startup():
+    await bot.delete_webhook(drop_pending_updates=True)
+    asyncio.create_task(dp.start_polling(bot))
+    
+@app.get("/ping")
+async def ping():
+    return JSONResponse(content={"status": "ok", "message": "Backend is alive!"})
