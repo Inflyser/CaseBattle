@@ -1,3 +1,8 @@
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 import asyncio, os
 
 from aiogram import Router, Dispatcher, Bot, F
@@ -17,7 +22,7 @@ def webapp_builder() -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
     builder.button(
         text="", web_app=WebAppInfo(
-        url="..."), # Replace with your web app URL
+        url="https://t.me/GiftsCaseBattlebot/GiftsCaseBattle"), # Replace with your web app URL
         )  
     
     return builder.as_markup()
@@ -44,3 +49,15 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:    
         print("Бот выключен.")
+
+
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Лучше указать точный адрес сайта на проде
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
