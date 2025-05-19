@@ -109,6 +109,20 @@ async def telegram_auth(request: Request):
     except Exception as e:
         raise HTTPException(status_code=403, detail=f"Auth failed: {str(e)}")
 
-    # Здесь можно сохранять user_data в БД и возвращать токен
+    user_id = int(user_data.get("id"))
+    photo_url = await get_user_photo_url(bot, user_id)
+
+    user_data["photo_url"] = photo_url or ""
+
     return {"status": "ok", "user": user_data}
 
+
+async def get_user_photo_url(bot: Bot, user_id: int) -> str | None:
+    photos = await bot.get_user_profile_photos(user_id)
+    if photos.total_count > 0:
+        file_id = photos.photos[0][0].file_id  # первая фотка, первый размер
+        file = await bot.get_file(file_id)
+        # Ссылка на файл
+        photo_url = f"https://api.telegram.org/file/bot{BOT_TOKEN}/{file.file_path}"
+        return photo_url
+    return None
