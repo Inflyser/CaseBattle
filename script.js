@@ -5,6 +5,7 @@ tg.expand();
 const initData = Telegram.WebApp.initData;  // Данные из Telegram WebApp
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
+console.log(initData);
 
 const renderUser = (user) => {
   if (user.photo_url) {
