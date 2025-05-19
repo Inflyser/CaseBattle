@@ -9,13 +9,24 @@ tg.expand();
 //     body: JSON.stringify({ telegram_id: Telegram.WebApp.initDataUnsafe.user.id })
 // });
 
-const initData = Telegram.WebApp.initData;
+const initData = Telegram.WebApp.initData;  // Данные из Telegram WebApp
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
-    
+
 const renderUser = (user) => {
-  userPhoto.src = user.photo_url;
-  userName.innerText = `@${user.username}`;
+  if (user.photo_url) {
+    userPhoto.src = user.photo_url;
+  } else {
+    userPhoto.src = "default_avatar.png"; // или любой запасной аватар
+  }
+
+  if (user.username) {
+    userName.innerText = `@${user.username}`;
+  } else if (user.first_name) {
+    userName.innerText = user.first_name;
+  } else {
+    userName.innerText = "Anonymous";
+  }
 };
 
 const savedUser = localStorage.getItem("user");
@@ -26,20 +37,18 @@ if (savedUser) {
 } else {
   fetch("/auth/telegram", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ init_data: initData })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ init_data: initData }),
   })
-  .then(res => res.json())
-  .then(data => {
-    if (data.status === "ok") {
-      const user = data.user;  // ✅ Теперь правильно
-      localStorage.setItem("user", JSON.stringify(user));
-      renderUser(user);
-    } else {
-      console.error("Auth failed", data);
-    }
-  })
-  .catch(console.error);
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === "ok") {
+        const user = data.user;
+        localStorage.setItem("user", JSON.stringify(user));
+        renderUser(user);
+      } else {
+        console.error("Auth failed", data);
+      }
+    })
+    .catch(console.error);
 }
