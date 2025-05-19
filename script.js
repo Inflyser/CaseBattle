@@ -3,17 +3,15 @@ tg.expand();
 
 
 const user = Telegram.WebApp.initDataUnsafe.user;
-console.log(user);
 renderUser(user); // Данные из Telegram WebApp
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
-console.log(initData);
 
 const renderUser = (user) => {
   if (user.photo_url) {
     userPhoto.src = user.photo_url;
   } else {
-    userPhoto.src = "default_avatar.png"; // или любой запасной аватар
+    userPhoto.src = "default_avatar.png";
   }
 
   if (user.username) {
@@ -25,6 +23,7 @@ const renderUser = (user) => {
   }
 };
 
+// Теперь вызывай renderUser только после объявления
 const savedUser = localStorage.getItem("user");
 
 if (savedUser) {
@@ -32,9 +31,9 @@ if (savedUser) {
   renderUser(user);
 } else {
   fetch("https://giftcasebattle.onrender.com/auth/telegram", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ init_data: initData }),
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ init_data: initData }),
   })
     .then((res) => res.json())
     .then((data) => {
