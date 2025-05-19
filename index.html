@@ -24,8 +24,8 @@
         <div class="header-balance">
           <div class="circle-plus"></div>
           <div class="balance-copy">
-            <img src="{{user.photo_url}}" />
-            <p>@{{user.username}}</p>
+            <img id="user-photo" src="" />
+            <p id="user-name">@username</p>
             <div class="card-stars">
               <img src="assets/star.png" alt="звезда" class="star-icon1">
               <span class="case-price">0</span>
@@ -48,32 +48,43 @@
     </div>
 
     <script>
-      const initData = Telegram.WebApp.initData;
-      fetch("/auth/telegram", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ init_data: initData })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === "ok") {
-          const user = JSON.parse(data.user.user);  // Внимание: data.user.user — это строка
-          document.querySelector("img").src = user.photo_url;
-          document.querySelector("p").innerText = `@${user.username}`;
+        const initData = Telegram.WebApp.initData;
+        const userPhoto = document.getElementById("user-photo");
+        const userName = document.getElementById("user-name");
+
+        const renderUser = (user) => {
+          userPhoto.src = user.photo_url;
+          userName.innerText = `@${user.username}`;
+        };
+      
+        const savedUser = localStorage.getItem("user");
+      
+        if (savedUser) {
+          const user = JSON.parse(savedUser);
+          renderUser(user);
         } else {
-          console.error("Auth failed", data);
+          fetch("/auth/telegram", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ init_data: initData })
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status === "ok") {
+              const user = JSON.parse(data.user.user);  // <- твой сервер вернул строку
+              localStorage.setItem("user", JSON.stringify(user));
+              renderUser(user);
+            } else {
+              console.error("Auth failed", data);
+            }
+          })
+          .catch(console.error);
         }
-      })
-      .catch(console.error);
-
-      document.getElementById("user-photo").src = user.photo_url;
-      document.getElementById("user-name").innerText = `@${user.username}`;
-
     </script>
-   
-    
+        
+
     
     <div class="bottom-nav">
       <a href="contests.html" class="nav-item">
