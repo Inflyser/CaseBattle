@@ -1,6 +1,7 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
+const initData = Telegram.WebApp.initData;
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
 
