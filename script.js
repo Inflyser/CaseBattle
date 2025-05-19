@@ -28,10 +28,10 @@ if (savedUser) {
   const user = JSON.parse(savedUser);
   renderUser(user);
 } else {
-  fetch("/auth/telegram", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ init_data: initData }),
+  fetch("https://giftcasebattle.onrender.com", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ init_data: initData }),
   })
     .then((res) => res.json())
     .then((data) => {
