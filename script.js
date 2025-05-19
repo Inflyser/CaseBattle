@@ -1,15 +1,12 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-const initData = Telegram.WebApp.initData;
+const initDataUnsafe = Telegram.WebApp.initDataUnsafe;
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
 
 function renderUser(user) {
   console.log("Rendering user:", user);
-
-  const userPhoto = document.getElementById("user-photo");
-  const userName = document.getElementById("user-name");
 
   if (userPhoto) {
     if (user.photo_url) {
@@ -30,10 +27,11 @@ function renderUser(user) {
   }
 }
 
-const user = Telegram.WebApp.initDataUnsafe.user;
+// Получаем пользователя из Telegram WebApp
+const user = initDataUnsafe.user;
 renderUser(user);
 
-// дальше остальной код с localStorage и fetch
+// Дальше работа с localStorage и авторизацией
 const savedUser = localStorage.getItem("user");
 
 if (savedUser) {
@@ -43,7 +41,7 @@ if (savedUser) {
   fetch("https://giftcasebattle.onrender.com/auth/telegram", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ init_data: initData }),
+    body: JSON.stringify(initDataUnsafe), // исправлено!
   })
     .then((res) => res.json())
     .then((data) => {
