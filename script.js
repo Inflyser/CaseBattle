@@ -39,10 +39,11 @@ if (savedUser) {
   renderUser(user);
 } else {
   fetch("https://giftcasebattle.onrender.com/auth/telegram", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(initDataUnsafe), // исправлено!
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ init_data: tg.initData }), // 💥 исправлено
   })
+
     .then((res) => res.json())
     .then((data) => {
       if (data.status === "ok") {
