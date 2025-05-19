@@ -10,13 +10,13 @@ from urllib.parse import parse_qsl
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 
-from aiogram import Router, Dispatcher, Bot, F
+from aiogram import Router, Dispatcher, Bot, F, types
 from aiogram.types import Message, WebAppInfo
 from aiogram.filters import CommandStart
 from aiogram.enums import ParseMode
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.client.default import DefaultBotProperties
-
+from aiogram.types import Update
 
 load_dotenv()
 # Load the bot token from the .env file
@@ -67,8 +67,7 @@ app.add_middleware(
 # Запуск бота при старте
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await bot.delete_webhook(drop_pending_updates=True)
-    asyncio.create_task(dp.start_polling(bot))
+    await bot.set_webhook("https://giftcasebattle.onrender.com/telegram")
     yield  # Здесь запускается сервер
     # Тут можно добавить код при завершении
 
@@ -126,3 +125,9 @@ async def get_user_photo_url(bot: Bot, user_id: int) -> str | None:
         photo_url = f"https://api.telegram.org/file/bot{BOT_TOKEN}/{file.file_path}"
         return photo_url
     return None
+
+@app.post("/telegram")
+async def telegram_webhook(request: Request):
+    data = await request.json()
+    update = Update(**data)
+    await dp.feed_update(bot, update)
