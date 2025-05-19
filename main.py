@@ -1,35 +1,28 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+import asyncio, os
 import hmac
 import hashlib
+
 from urllib.parse import parse_qsl
-
-from fastapi import FastAPI, Request, HTTPException
-
-
-import asyncio, os
+from contextlib import asynccontextmanager
+from dotenv import load_dotenv
 
 from aiogram import Router, Dispatcher, Bot, F
-from aiogram.types import Message, CallbackQuery, WebAppInfo
+from aiogram.types import Message, WebAppInfo
 from aiogram.filters import CommandStart
 from aiogram.enums import ParseMode
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from aiogram.client.default import DefaultBotProperties
-from aiogram.client.session.aiohttp import AiohttpSession
 
-from dotenv import load_dotenv
 
 load_dotenv()
 # Load the bot token from the .env file
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 BOT_TOKEN_SECRET = hashlib.sha256(BOT_TOKEN.encode()).digest()
 # Initialize FastAPI app
-
 
 def webapp_builder() -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
@@ -50,7 +43,6 @@ async def start(message: Message):
     )
         
 
-
 bot = Bot(
     BOT_TOKEN,
     # session=AiohttpSession(proxy="socks5://user:pass@host:port"),
@@ -60,21 +52,19 @@ bot = Bot(
 dp = Dispatcher()
 dp.include_router(router)
     
-
+    
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Лучше указать точный адрес сайта на проде
+    allow_origins=["https://inflyser.github.io"],  # Лучше указать точный адрес сайта на проде
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Запуск бота при старте
-from contextlib import asynccontextmanager
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await bot.delete_webhook(drop_pending_updates=True)
