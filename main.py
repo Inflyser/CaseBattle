@@ -58,7 +58,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://inflyser.github.io/CaseBattle/index.html"],  # Лучше указать точный адрес сайта на проде
+    allow_origins=["https://inflyser.github.io"],  # Лучше указать точный адрес сайта на проде
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
