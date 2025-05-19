@@ -55,8 +55,22 @@
           "Content-Type": "application/json"
         },
         body: JSON.stringify({ init_data: initData })
-      }).then(r => r.json())
-        .then(console.log);
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "ok") {
+          const user = JSON.parse(data.user.user);  // Внимание: data.user.user — это строка
+          document.querySelector("img").src = user.photo_url;
+          document.querySelector("p").innerText = `@${user.username}`;
+        } else {
+          console.error("Auth failed", data);
+        }
+      })
+      .catch(console.error);
+
+      document.getElementById("user-photo").src = user.photo_url;
+      document.getElementById("user-name").innerText = `@${user.username}`;
+
     </script>
    
     
