@@ -1,13 +1,6 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-fetch('https://giftcasebattle.onrender.com', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ telegram_id: Telegram.WebApp.initDataUnsafe.user.id })
-});
 
 const initData = Telegram.WebApp.initData;  // Данные из Telegram WebApp
 const userPhoto = document.getElementById("user-photo");
