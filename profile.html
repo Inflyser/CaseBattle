@@ -28,7 +28,7 @@
         const responseElement = document.getElementById("response");
       
         try {
-          const res = await fetch("https://giftcasebattle.onrender.com/ping");
+          const res = await fetch("https://giftcasebattle.onrender.com/auth/telegram");
           const data = await res.json();
           responseElement.textContent = "✅ Ответ: " + JSON.stringify(data);
         } catch (error) {
