@@ -73,10 +73,16 @@ app.add_middleware(
 )
 
 # Запуск бота при старте
-@app.on_event("startup")
-async def on_startup():
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     await bot.delete_webhook(drop_pending_updates=True)
     asyncio.create_task(dp.start_polling(bot))
+    yield  # Здесь запускается сервер
+    # Тут можно добавить код при завершении
+
+app = FastAPI(lifespan=lifespan)
     
 @app.get("/ping")
 async def ping():
