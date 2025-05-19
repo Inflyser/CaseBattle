@@ -52,9 +52,16 @@ bot = Bot(
 dp = Dispatcher()
 dp.include_router(router)
     
-    
 
-app = FastAPI()
+# Запуск бота при старте
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await bot.set_webhook("https://giftcasebattle.onrender.com/telegram")
+    yield  # Здесь запускается сервер
+    # Тут можно добавить код при завершении
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -64,14 +71,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Запуск бота при старте
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    await bot.set_webhook("https://giftcasebattle.onrender.com/telegram")
-    yield  # Здесь запускается сервер
-    # Тут можно добавить код при завершении
 
-app = FastAPI(lifespan=lifespan)
+
     
 @app.get("/ping")
 async def ping():
