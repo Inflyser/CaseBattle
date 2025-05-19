@@ -1,9 +1,6 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-
-const user = Telegram.WebApp.initDataUnsafe.user;
-renderUser(user); // Данные из Telegram WebApp
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
 
@@ -23,7 +20,10 @@ const renderUser = (user) => {
   }
 };
 
-// Теперь вызывай renderUser только после объявления
+const user = Telegram.WebApp.initDataUnsafe.user;
+renderUser(user);
+
+// дальше остальной код с localStorage и fetch
 const savedUser = localStorage.getItem("user");
 
 if (savedUser) {
