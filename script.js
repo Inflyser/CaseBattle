@@ -2,7 +2,9 @@ const tg = window.Telegram.WebApp;
 tg.expand();
 
 
-const initData = Telegram.WebApp.initData;  // Данные из Telegram WebApp
+const user = Telegram.WebApp.initDataUnsafe.user;
+console.log(user);
+renderUser(user); // Данные из Telegram WebApp
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
 console.log(initData);
