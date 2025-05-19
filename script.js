@@ -5,21 +5,30 @@ const initData = Telegram.WebApp.initData;
 const userPhoto = document.getElementById("user-photo");
 const userName = document.getElementById("user-name");
 
-const renderUser = (user) => {
-  if (user.photo_url) {
-    userPhoto.src = user.photo_url;
-  } else {
-    userPhoto.src = "default_avatar.png";
+function renderUser(user) {
+  console.log("Rendering user:", user);
+
+  const userPhoto = document.getElementById("user-photo");
+  const userName = document.getElementById("user-name");
+
+  if (userPhoto) {
+    if (user.photo_url) {
+      userPhoto.src = user.photo_url;
+    } else {
+      userPhoto.src = "default_avatar.png";
+    }
   }
 
-  if (user.username) {
-    userName.innerText = `@${user.username}`;
-  } else if (user.first_name) {
-    userName.innerText = user.first_name;
-  } else {
-    userName.innerText = "Anonymous";
+  if (userName) {
+    if (user.username) {
+      userName.innerText = `@${user.username}`;
+    } else if (user.first_name) {
+      userName.innerText = user.first_name;
+    } else {
+      userName.innerText = "Anonymous";
+    }
   }
-};
+}
 
 const user = Telegram.WebApp.initDataUnsafe.user;
 renderUser(user);
