@@ -51,14 +51,14 @@
         const initData = Telegram.WebApp.initData;
         const userPhoto = document.getElementById("user-photo");
         const userName = document.getElementById("user-name");
-
+            
         const renderUser = (user) => {
           userPhoto.src = user.photo_url;
           userName.innerText = `@${user.username}`;
         };
-      
+        
         const savedUser = localStorage.getItem("user");
-      
+        
         if (savedUser) {
           const user = JSON.parse(savedUser);
           renderUser(user);
@@ -73,7 +73,7 @@
           .then(res => res.json())
           .then(data => {
             if (data.status === "ok") {
-              const user = JSON.parse(data.user.user);  // <- твой сервер вернул строку
+              const user = data.user;  // ✅ Теперь правильно
               localStorage.setItem("user", JSON.stringify(user));
               renderUser(user);
             } else {
