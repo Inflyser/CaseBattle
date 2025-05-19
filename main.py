@@ -5,6 +5,13 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+import hmac
+import hashlib
+from urllib.parse import parse_qsl
+
+from fastapi import FastAPI, Request, HTTPException
+
+
 import asyncio, os
 
 from aiogram import Router, Dispatcher, Bot, F
@@ -20,6 +27,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # Load the bot token from the .env file
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN_SECRET = hashlib.sha256(BOT_TOKEN.encode()).digest()
 # Initialize FastAPI app
 
 
@@ -73,3 +81,38 @@ async def on_startup():
 @app.get("/ping")
 async def ping():
     return JSONResponse(content={"status": "ok", "message": "Backend is alive!"})
+
+
+def verify_telegram_init_data(init_data: str) -> dict:
+    """
+    Проверка подписи данных, полученных из Telegram WebApp (initData).
+    Возвращает словарь данных пользователя, если всё валидно.
+    """
+    parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
+    hash_from_telegram = parsed_data.pop("hash", None)
+    if not hash_from_telegram:
+        raise ValueError("Missing hash in init data")
+
+    data_check_string = "\n".join(f"{k}={v}" for k, v in sorted(parsed_data.items()))
+    hmac_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
+
+    if hmac_hash != hash_from_telegram:
+        raise ValueError("Invalid data: hash mismatch")
+
+    return parsed_data
+
+@app.post("/auth/telegram")
+async def telegram_auth(request: Request):
+    data = await request.json()
+    init_data = data.get("init_data")
+    if not init_data:
+        raise HTTPException(status_code=400, detail="No init_data")
+
+    try:
+        user_data = verify_telegram_init_data(init_data)
+    except Exception as e:
+        raise HTTPException(status_code=403, detail=f"Auth failed: {str(e)}")
+
+    # Здесь можно сохранять user_data в БД и возвращать токен
+    return {"status": "ok", "user": user_data}
+
