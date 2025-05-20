@@ -121,7 +121,7 @@
 .header-user {
   display: flex;
   align-items: center;
-  gap: 2px; /* расстояние между фото и именем */
+ /* расстояние между фото и именем */
 }
 
 .header-balance {
