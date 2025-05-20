@@ -114,7 +114,20 @@
 .header-content {
   display: flex;
   align-items: center;
-  width: 100%;
+  justify-content: space-between; /* ВАЖНО: разносит контент по краям */
+}
+
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* расстояние между фото и именем */
+}
+
+.header-balance {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* если нужно расстояние между элементами справа */
 }
 
 
@@ -151,6 +164,10 @@
   min-width: 60px; /* ширина плашек */
   color: white;
 }
+
+
+
+
 
 /* Синий кружок с плюсиком */
 .circle-plus {
@@ -207,7 +224,6 @@
   margin: 20px 0;
 }
 
-
 /* Стили для кастомного скролла (Chrome, Edge, Safari) */
 .scroll-container::-webkit-scrollbar {
   height: 6px;
@@ -223,6 +239,7 @@
   border-radius: 3px;
 }
 
+
 /* Овальные кнопки */
 .oval-button {
   flex: 0 0 auto; /* не сжимать, не растягивать */
@@ -237,7 +254,6 @@
   white-space: nowrap;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
-
 
 .oval-button:hover:not(.active) {
   background-color: #464646;
