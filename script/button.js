@@ -15,8 +15,9 @@ function getUrlParameter(sParam) {
 
 var infoType = getUrlParameter('info');
 
-if (infoType === 'box1') { // Интерстеллар
+if (infoType === 'box1') { 
     document.getElementById('name__case').textContent = 'Бесплатный за промокод';
+    document.getElementById('case__image').src = '../../assets/case/box1.png';
 
 
 
