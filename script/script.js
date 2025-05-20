@@ -17,12 +17,12 @@ function renderUser(user) {
   }
 
   if (userName) {
-    if (user.username) {
-      userName.innerText = `${user.username}`;
-    } else if (user.first_name) {
+    if (user.first_name) {
       userName.innerText = user.first_name;
+    } else if (user.username) {
+      userName.innerText = `${user.username}`;
     } else {
-      userName.innerText = "Anonymous";
+      userName.innerText = "Гость";
     }
   }
 }
@@ -41,18 +41,18 @@ if (savedUser) {
   fetch("https://giftcasebattle.onrender.com/auth/telegram", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ init_data: tg.initData }), // 💥 исправлено
+  body: JSON.stringify({ init_data: tg.initData }),
   })
 
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.status === "ok") {
-        const user = data.user;
-        localStorage.setItem("user", JSON.stringify(user));
-        renderUser(user);
-      } else {
-        console.error("Auth failed", data);
-      }
-    })
-    .catch(console.error);
+  .then((res) => res.json())
+  .then((data) => {
+    if (data.status === "ok") {
+      const user = data.user;
+      localStorage.setItem("user", JSON.stringify(user));
+      renderUser(user);
+    } else {
+      console.error("Auth failed", data);
+    }
+  })
+  .catch(console.error);
 }
