@@ -28,4 +28,33 @@ if (infoType === 'box1') { // Интерстеллар
     document.getElementById('name__case').textContent = 'Бесплатный за пополнение от 2000';
 
 
+} else if (infoType === 'box4') {
+    document.getElementById('name__case').textContent = 'Бесплатный за пополнение от 5000';
+
+
+} else if (infoType === 'box5') {
+    document.getElementById('name__case').textContent = 'Бесплатный за пополнение от 10000';
+
+
+
+} else if (infoType === 'box11') {
+    document.getElementById('name__case').textContent = 'Бомж';
+
+
+} else if (infoType === 'box12') {
+    document.getElementById('name__case').textContent = 'Работяга';
+
+
+} else if (infoType === 'box13') {
+    document.getElementById('name__case').textContent = 'Офисный клерк';
+
+
+} else if (infoType === 'box14') {
+    document.getElementById('name__case').textContent = 'Директор';
+
+
+} else if (infoType === 'box15') {
+    document.getElementById('name__case').textContent = 'Олигарх';
+
+
 }
