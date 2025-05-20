@@ -203,7 +203,6 @@ h1, h2, h3, h4, h5, h6{
 }
 
 /* Основная плашка и копии */
-
 .balance-copy {
   background-color: #0d0f13;
   border-radius: 10px;
@@ -217,8 +216,6 @@ h1, h2, h3, h4, h5, h6{
   min-width: 60px; /* ширина плашек */
   color: white;
 }
-
-
 
 /* Синий кружок с плюсиком */
 .circle-plus {
@@ -334,5 +331,5 @@ h1, h2, h3, h4, h5, h6{
 }
 
 #user-photo, #user-name {
-  margin-right: 5px;
+  margin-right: 10px;
 }
