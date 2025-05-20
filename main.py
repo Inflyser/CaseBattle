@@ -45,9 +45,9 @@ text_start = """
 
 @router.message(CommandStart())
 async def start(message: Message):
-        await message.answer_photo(
-        "AgACAgIAAxkBAANUaCyoSECX2QaSUXFDybrTYxRfrP4AAqryMRv0RmhJL_ElFcky29kBAAMCAAN4AAM2BA",
-        caption=text_start,
+        await message.answer(
+        # "AgACAgIAAxkBAANUaCyoSECX2QaSUXFDybrTYxRfrP4AAqryMRv0RmhJL_ElFcky29kBAAMCAAN4AAM2BA",
+        text_start,
         reply_markup=webapp_builder()
     )
         
