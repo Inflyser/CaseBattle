@@ -35,10 +35,19 @@ def webapp_builder() -> InlineKeyboardBuilder:
 
 router = Router()
 
+text_start = """
+🎁Открывай бесплатные и авторские кейсы с NFT-подарками!
+
+🚀Апгрейди свои подарки до более ценных.
+
+✅Испытай удачу с нами!
+"""
+
 @router.message(CommandStart())
 async def start(message: Message):
-        await message.reply(
-        "Привет! 👇",
+        await message.answer_photo(
+        "AgACAgIAAxkBAANUaCyoSECX2QaSUXFDybrTYxRfrP4AAqryMRv0RmhJL_ElFcky29kBAAMCAAN4AAM2BA",
+        caption=text_start,
         reply_markup=webapp_builder()
     )
         
