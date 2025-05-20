@@ -1,7 +1,9 @@
-lottie.loadAnimation({
-  container: document.getElementById('animation-container'), // контейнер для анимации
-  renderer: 'svg', // рендеринг через SVG
-  loop: true,
-  autoplay: true,
-  path: '../Horror_Movie.json' // путь к распакованному JSON
+document.addEventListener('DOMContentLoaded', function () {
+  lottie.loadAnimation({
+    container: document.getElementById('animation-container'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: '../jsons/Horror_Movie.json'
+  });
 });
