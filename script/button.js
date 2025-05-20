@@ -15,13 +15,13 @@ function getUrlParameter(sParam) {
 
 var infoType = getUrlParameter('info');
 
-if (infoType === 'film1') { // Интерстеллар
+if (infoType === 'box1') { // Интерстеллар
     document.getElementById('name__case').textContent = 'Бесплатный за промокод';
     document.getElementById('name__film').textContent = 'Интерстеллар';
 
 
-} else if (infoType === 'film2') {
-    document.getElementById('content').textContent = 'Это вторая часть информации.';
+} else if (infoType === 'box2') {
+    document.getElementById('content').textContent = 'Бесплатный за пополнение от 1000';
     document.getElementById('name__film').textContent = 'Унесённые призраками';
     document.getElementById('short__text').textContent = '...';
     document.getElementById('year').textContent = '...';
