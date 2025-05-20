@@ -81,8 +81,6 @@ app.add_middleware(
 )
 
 
-
-    
 @app.get("/ping")
 async def ping():
     return JSONResponse(content={"status": "ok", "message": "Backend is alive!"})
