@@ -280,7 +280,7 @@
   border-radius: 8px; /* Можно увеличить или уменьшить радиус по желанию */
   object-fit: cover;  /* Чтобы изображение не искажалось */
 }
-
+/* 
 #user-photo, #user-name {
   margin-right: 10px;
-}
+} */
