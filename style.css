@@ -196,7 +196,7 @@ h1, h2, h3, h4, h5, h6{
   display: flex;
   align-items: center;
   white-space: nowrap;
-  margin-left: 20px; /* отступ слева от блока header-balance */
+  margin-left: 150px; /* отступ слева от блока header-balance */
   font-size: 14px;
   min-width: 100px; /* увеличьте ширину контейнера для размещения всех элементов */
   gap: 16px; /* расстояние между плашками */
