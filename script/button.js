@@ -17,23 +17,15 @@ var infoType = getUrlParameter('info');
 
 if (infoType === 'box1') { // Интерстеллар
     document.getElementById('name__case').textContent = 'Бесплатный за промокод';
-    document.getElementById('name__film').textContent = 'Интерстеллар';
+
 
 
 } else if (infoType === 'box2') {
-    document.getElementById('content').textContent = 'Бесплатный за пополнение от 1000';
-    document.getElementById('name__film').textContent = 'Унесённые призраками';
-    document.getElementById('short__text').textContent = '...';
-    document.getElementById('year').textContent = '...';
-    document.getElementById('country').textContent = '...';
-    document.getElementById('genre').textContent = '...';
+    document.getElementById('name__case').textContent = 'Бесплатный за пополнение от 1000';
 
-} else if (infoType === 'film3') {
-    document.getElementById('content').textContent = 'Это вторая часть информации.';
-    document.getElementById('name__film').textContent = 'Унесённые призраками';
-    document.getElementById('short__text').textContent = '...';
-    document.getElementById('year').textContent = '...';
-    document.getElementById('country').textContent = '...';
-    document.getElementById('genre').textContent = '...';
+
+} else if (infoType === 'box3') {
+    document.getElementById('name__case').textContent = 'Бесплатный за пополнение от 2000';
+
 
 }
