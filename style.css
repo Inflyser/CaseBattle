@@ -325,7 +325,7 @@ h1, h2, h3, h4, h5, h6{
   pointer-events: auto;
 }
 
-.userPhoto {
+#user-photo {
   width: 50px;
   height: 50px;
   border-radius: 8px; /* Можно увеличить или уменьшить радиус по желанию */
