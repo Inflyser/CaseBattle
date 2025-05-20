@@ -1,53 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>CaseBattle WebApp</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../style/style.css">
-    <link rel="stylesheet" href="../style/main.css">
-
-    <!-- Подключаем SDK Telegram -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta charset="UTF-8">
+  <title>CaseBattle WebApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/main.css">
+  <!-- Подключаем SDK Telegram -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   
 
 </head>
 <body>
-    <div id="header-container"></div>
-    
-    <h2>Конкурсы</h2>
-    
-    
-    <div class="bottom-nav">
-      <a href="contests.html" class="nav-item active">
-        <img src="../assets/contests.png" alt="Конкурсы">
-        <span>Конкурсы</span>
-      </a>
-      <a href="upgrade.html" class="nav-item">
-        <img src="../assets/upgrade.png" alt="Апгрейд">
-        <span>Апгрейд</span>
-      </a>
-      <a href="../index.html" class="nav-item">
-        <img src="../assets/home_img.png" alt="Кейсы">
-        <span>Кейсы</span>
-      </a>
-      <a href="friends.html" class="nav-item">
-        <img src="../assets/freands_img.png" alt="Друзья">
-        <span>Друзья</span>
-      </a>
-      <a href="profile.html" class="nav-item">
-        <img src="../assets/profile_img.png" alt="Профиль">
-        <span>Профиль</span>
-      </a>
+  <div class="header">
+    <div class="header-content">
+      <div class="header-user">
+        <img id="user-photo" src="default_avatar.png" alt="User photo" />
+        <h4 id="user-name">Loading...</h4>
+      </div>
+      <div class="header-balance">
+        <img src="../assets/plus.png" alt="" style="width: 25px; height: 25px;">
+        <div class="balance-copy">
+          <div class="card-stars">
+            <img src="../assets/star.png" alt="звезда" class="star-icon1">
+            <span class="case-price">0</span>
+          </div>
+        </div>
+        <div class="balance-copy"></div>
+      </div>
     </div>
+  </div>
+    
+  <h2>Конкурсы</h2>
 
-    <script src="../script/script.js"></script>
-    <script src="../script/style.js"></script>
-    <script src="../script/template.js"></script>
+    
+  <div class="bottom-nav">
+    <a href="contests.html" class="nav-item active">
+      <img src="../assets/contests.png" alt="Конкурсы">
+      <span>Конкурсы</span>
+    </a>
+    <a href="upgrade.html" class="nav-item">
+      <img src="../assets/upgrade.png" alt="Апгрейд">
+      <span>Апгрейд</span>
+    </a>
+    <a href="../index.html" class="nav-item">
+      <img src="../assets/home_img.png" alt="Кейсы">
+      <span>Кейсы</span>
+    </a>
+    <a href="friends.html" class="nav-item">
+      <img src="../assets/freands_img.png" alt="Друзья">
+      <span>Друзья</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+      <img src="../assets/profile_img.png" alt="Профиль">
+      <span>Профиль</span>
+    </a>
+  </div>
+
+  <script src="../script/script.js"></script>
+  <script src="../script/style.js"></script>
 </body>
 </html>
