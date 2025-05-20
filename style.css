@@ -196,6 +196,7 @@ h1, h2, h3, h4, h5, h6{
   display: flex;
   align-items: center;
   white-space: nowrap;
+  margin-left: 20px; /* отступ слева от блока header-balance */
   font-size: 14px;
   min-width: 100px; /* увеличьте ширину контейнера для размещения всех элементов */
   gap: 16px; /* расстояние между плашками */
@@ -330,4 +331,8 @@ h1, h2, h3, h4, h5, h6{
   height: 50px;
   border-radius: 8px; /* Можно увеличить или уменьшить радиус по желанию */
   object-fit: cover;  /* Чтобы изображение не искажалось */
+}
+
+#user-photo, #user-name {
+  margin-right: 5px;
 }
