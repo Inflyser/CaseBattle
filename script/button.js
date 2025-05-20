@@ -19,8 +19,6 @@ if (infoType === 'box1') {
     document.getElementById('name__case').textContent = 'Бесплатный за промокод';
     document.getElementById('case__image').src = `../../assets/case/${infoType}.png`;
 
-
-
 } else if (infoType === 'box2') {
     document.getElementById('name__case').textContent = 'Бесплатный за пополнение от 1000';
     document.getElementById('case__image').src = `../../assets/case/${infoType}.png`;
