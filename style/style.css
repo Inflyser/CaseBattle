@@ -111,7 +111,7 @@
 }
 
 .header-content {
-  margin: 0 auto; /* центрирует по горизонтали */
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between; /* если нужно разнести элементы внутри */
@@ -120,7 +120,7 @@
 .header-user {
   display: flex;
   align-items: center;
-  grid: 5px;/* расстояние между фото и именем */
+  gap: 5px;/* расстояние между фото и именем */
 }
 
 .header-balance {
