@@ -112,11 +112,11 @@
 }
 
 .header-content {
+  margin: 0 auto; /* центрирует по горизонтали */
   display: flex;
   align-items: center;
-  justify-content: space-between; /* ВАЖНО: разносит контент по краям */
+  justify-content: space-between; /* если нужно разнести элементы внутри */
 }
-
 
 .header-user {
   display: flex;
