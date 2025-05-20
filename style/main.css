@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    font-family: "Istok Web", sans-serif;
+    background-color: #0B0C10;
+    font-size: 15px;
+    color: #ffffff;
+    font-style: normal;
+    padding-top: 64px; 
+}
+
+html {
+  scroll-behavior: smooth; /* Плавная прокрутка */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6{
+  margin: 0;
+  padding: 0;
+}
+
+/* Скрыть скрол */
+
+.example::-webkit-scrollbar {
+    display: none;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0; 
+} 
+
+
+.text-container{
+  white-space: nowrap;
+}
+
+.istok-web-regular {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.istok-web-bold {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.istok-web-regular-italic {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.istok-web-bold-italic {
+  font-family: "Istok Web", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
