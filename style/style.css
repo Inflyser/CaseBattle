@@ -278,3 +278,6 @@
   object-fit: cover;  /* Чтобы изображение не искажалось */
 }
 
+#user-name {
+  margin-left: 10px;
+}
