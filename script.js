@@ -18,7 +18,7 @@ function renderUser(user) {
 
   if (userName) {
     if (user.username) {
-      userName.innerText = `@${user.username}`;
+      userName.innerText = `${user.username}`;
     } else if (user.first_name) {
       userName.innerText = user.first_name;
     } else {
