@@ -121,13 +121,13 @@
 .header-user {
   display: flex;
   align-items: center;
-  gap: 10px; /* расстояние между фото и именем */
+  gap: 2px; /* расстояние между фото и именем */
 }
 
 .header-balance {
   display: flex;
   align-items: center;
-  gap: 15px; /* если нужно расстояние между элементами справа */
+  
 }
 
 
@@ -281,6 +281,3 @@
   object-fit: cover;  /* Чтобы изображение не искажалось */
 }
 
-#user-photo, #user-name {
-  margin-left: -26px;
-} 
