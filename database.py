@@ -1,11 +1,7 @@
-from typing import Optional
-from sqlmodel import Field, SQLModel
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
 
+DATABASE_URL = "postgresql+asyncpg://user:password@host:port/dbname"
 
-class User(SQLModel, table=True):
-    id: int = Field(primary_key=True)
-    username: Optional[str]
-    first_name: str
-    last_name: Optional[str]
-    photo_url: Optional[str]
-    auth_date: int
+engine = create_async_engine(DATABASE_URL, echo=True)
+AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)

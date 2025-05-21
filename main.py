@@ -47,7 +47,7 @@ text_start = """
 async def start(message: Message):
         await message.answer(
         # "AgACAgIAAxkBAANUaCyoSECX2QaSUXFDybrTYxRfrP4AAqryMRv0RmhJL_ElFcky29kBAAMCAAN4AAM2BA",
-        text_start,
+        "Starting - Bot correct!",
         reply_markup=webapp_builder()
     )
         
@@ -139,3 +139,4 @@ async def telegram_webhook(request: Request):
     data = await request.json()
     update = Update(**data)
     await dp.feed_update(bot, update)
+    
