@@ -5,6 +5,19 @@
   padding: 16px;
 }
 
+.case-grid1 {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.case-grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 16px;
+}
+
 .case-card {
   background-color: #131417;
   border-radius: 12px;
