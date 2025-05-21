@@ -18,6 +18,9 @@
   padding: 16px;
 }
 
+
+
+
 .case-card {
   background-color: #131417;
   border-radius: 12px;
@@ -50,6 +53,15 @@
   font-weight: bold;
   font-size: 18px;
 }
+
+
+
+
+
+
+
+
+
 
 .bottom-nav {
   position: fixed;
@@ -96,6 +108,10 @@
   width: 17px;
   height: 17px;
 }
+
+
+
+
 
 .star-icon1 {
   width: 16px;
@@ -179,44 +195,6 @@
 
 
 
-/* Синий кружок с плюсиком */
-.circle-plus {
-  width: 26px;
-  height: 26px;
-  background-color: #007BFF;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  position: relative;
-  flex-shrink: 0; /* не сжимать кружок */
-}
-
-/* Плюсик */
-.circle-plus::before,
-.circle-plus::after {
-  content: "";
-  position: absolute;
-  background-color: rgb(255, 255, 255);
-  border-radius: 2px;
-}
-
-.circle-plus::before {
-  width: 12px;
-  height: 2px;
-  top: 13px;
-  left: 8px;
-}
-
-.circle-plus::after {
-  width: 2px;
-  height: 12px;
-  top: 8px;
-  left: 13px;
-}
-
 
 
 
@@ -248,6 +226,14 @@
   background-color: #888;
   border-radius: 3px;
 }
+
+
+
+
+
+
+
+
 
 
 /* Овальные кнопки */
@@ -284,6 +270,14 @@
   pointer-events: auto;
 }
 
+
+
+
+
+
+
+
+
 #user-photo {
   width: 45px;
   height: 45px;
@@ -296,8 +290,8 @@
 }
 
 .play-button {
+  flex: 0 0 auto; 
   background-color: #131417; 
   white-space: nowrap;
-  flex: 0 0 auto; 
   border: none;
 }
