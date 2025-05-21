@@ -4,6 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     renderer: 'svg',
     loop: true,
     autoplay: true,
-    path: '../jsons/Horror_Movie.json'
+    path: '../../jsons/Horror_Movie.json'
   });
 });
