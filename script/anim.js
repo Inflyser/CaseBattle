@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const animation = lottie.loadAnimation({
     container: document.getElementById('animation-container'),
     renderer: 'svg',
-    loop: true,
+    loop: false,
     autoplay: false,  // отключаем автозапуск
     path: '../../jsons/Horror_Movie.json'
   });

@@ -294,3 +294,10 @@
 #user-name {
   margin-left: 10px;
 }
+
+.play-button {
+  background-color: #131417; 
+  white-space: nowrap;
+  flex: 0 0 auto; 
+  border: none;
+}
