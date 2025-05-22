@@ -8,7 +8,7 @@ load_dotenv()
 
 DATABASE_URL=os.getenv("DATABASE_URL")
 
-if f"{os.getenv("DB_PORT")}" not in DATABASE_URL:
+if os.getenv("DB_PORT") not in DATABASE_URL:
     DATABASE_URL=os.getenv("DATABASE_URL")[:len(os.getenv("DATABASE_URL"))-len("/casebattle_db")] + os.getenv("DB_URLM") + "/casebattle_db"
 
 engine = create_async_engine(DATABASE_URL, echo=True)
