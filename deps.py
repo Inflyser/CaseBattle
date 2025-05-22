@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from .database import AsyncSessionLocal
+from database import AsyncSessionLocal
 
 @asynccontextmanager
 async def get_db():
