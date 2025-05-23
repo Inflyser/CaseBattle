@@ -1,12 +1,14 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi import Form, HTTPException, Depends
 
 import asyncio, os
 import hmac
 import hashlib
 import json
 from typing import Dict
+import urllib.parse
 
 from urllib.parse import parse_qsl
 from contextlib import asynccontextmanager
@@ -118,48 +120,45 @@ def flatten_data(data):
             items.append((k, str(v)))
     return dict(items)
 
-def verify_telegram_init_data(init_data: str) -> Dict[str, str]:
-    parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
-    received_hash = parsed_data.pop("hash", None) or parsed_data.pop("signature", None)
-    if not received_hash:
-        raise ValueError("Missing hash or signature in init_data")
+def validate_telegram_auth(init_data: str):
+    # Преобразуем init_data в dict
+    parsed_data = dict(urllib.parse.parse_qsl(init_data, keep_blank_values=True))
+    
+    # Получаем signature и удаляем из словаря
+    received_hash = parsed_data.pop('hash', None) or parsed_data.pop('signature', None)
 
-    # Убираем hash и делаем data_check_string
-    data_check_string = "\n".join(
-        f"{k}={v}" for k, v in sorted(parsed_data.items())
-    )
+    # Сортируем и формируем data_check_string
+    data_check_string = '\n'.join([f'{k}={v}' for k, v in sorted(parsed_data.items())])
 
-    expected_hash = hmac.new(
-        BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256
-    ).hexdigest()
+    # Вычисляем свой хеш
+    computed_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
 
-    print("✅ Data Check String:\n", data_check_string)
-    print("✅ Expected Hash:", expected_hash)
-    print("✅ Given Hash:", received_hash)
-
-    if expected_hash != received_hash:
-        raise ValueError("Invalid signature")
-
-    return parsed_data
+    return hmac.compare_digest(received_hash, computed_hash)
 
 
 @app.post("/auth/telegram")
-async def telegram_auth(request: Request, db: AsyncSession = Depends(get_db)):
-    data = await request.json()
-    init_data = data.get("init_data")
-    if not init_data:
-        raise HTTPException(status_code=400, detail="No init_data")
+async def auth_telegram(
+    init_data: str = Form(...),
+    db: AsyncSession = Depends(get_db)
+):
+    # Шаг 1: Валидация
+    if not validate_telegram_auth(init_data):
+        raise HTTPException(status_code=403, detail="Invalid signature")
 
+    # Шаг 2: Парсинг данных
+    parsed = dict(urllib.parse.parse_qsl(init_data))
     try:
-        user_data = verify_telegram_init_data(init_data)
-    except Exception as e:
-        raise HTTPException(status_code=403, detail=f"Auth failed: {str(e)}")
+        user_data = json.loads(parsed.get("user", "{}"))
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Invalid user data")
 
     user_id = int(user_data.get("id"))
+
+    # Шаг 3: Дополнительные данные (аватарка и пр.)
     photo_url = await get_user_photo_url(bot, user_id)
     user_data["photo_url"] = photo_url or ""
 
-    # Обновляем или создаём пользователя в базе
+    # Шаг 4: Работа с базой
     try:
         result = await db.execute(select(User).where(User.telegram_id == user_id))
         db_user = result.scalar_one_or_none()
@@ -183,7 +182,8 @@ async def telegram_auth(request: Request, db: AsyncSession = Depends(get_db)):
         await db.rollback()
         raise HTTPException(status_code=500, detail=f"DB error: {str(e)}")
 
-    return {"status": "ok", "user": user_data}
+    # Шаг 5: Ответ
+    return JSONResponse(content={"status": "ok", "user": user_data})
 
 
 
