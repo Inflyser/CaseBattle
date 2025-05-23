@@ -130,7 +130,7 @@ async def telegram_auth(request: Request, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=400, detail="No init_data")
 
     try:
-        user_data = verify_telegram_init_data(init_data, BOT_TOKEN_SECRET)
+        user_data = verify_telegram_init_data(init_data)
     except Exception as e:
         raise HTTPException(status_code=403, detail=f"Auth failed: {str(e)}")
 
