@@ -98,16 +98,22 @@ async def ping():
 
 
 
-def verify_telegram_init_data(init_data: str, bot_token: str) -> dict:
+def verify_telegram_init_data(init_data: str) -> dict:
+    from urllib.parse import parse_qsl
+    import hmac, hashlib
+
     parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
+    print("Parsed data:", parsed_data)
     hash_from_telegram = parsed_data.pop("hash", None)
+    print("Hash from telegram:", hash_from_telegram)
     if not hash_from_telegram:
         raise ValueError("Missing hash in init data")
 
     data_check_string = "\n".join(f"{k}={v}" for k, v in sorted(parsed_data.items()))
+    print("Data check string:", data_check_string)
 
-    secret_key = hashlib.sha256(bot_token.encode()).digest()
-    hmac_hash = hmac.new(secret_key, data_check_string.encode(), hashlib.sha256).hexdigest()
+    hmac_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
+    print("Calculated hmac hash:", hmac_hash)
 
     if hmac_hash != hash_from_telegram:
         raise ValueError("Invalid data: hash mismatch")
