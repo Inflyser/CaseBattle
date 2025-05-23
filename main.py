@@ -6,7 +6,7 @@ import asyncio, os
 import hmac
 import hashlib
 import json
-
+from typing import Dict
 
 from urllib.parse import parse_qsl
 from contextlib import asynccontextmanager
@@ -118,25 +118,27 @@ def flatten_data(data):
             items.append((k, str(v)))
     return dict(items)
 
-def verify_telegram_init_data(init_data: str) -> dict:
+def verify_telegram_init_data(init_data: str) -> Dict[str, str]:
     parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
-    signature = parsed_data.pop("hash", None)
-    if not signature:
-        raise ValueError("Missing hash in init data")
+    received_hash = parsed_data.pop("hash", None) or parsed_data.pop("signature", None)
+    if not received_hash:
+        raise ValueError("Missing hash or signature in init_data")
 
-    parsed_data = flatten_data(parsed_data)
-    data_check_string = "\n".join(f"{k}={v}" for k, v in sorted(parsed_data.items()))
+    # Убираем hash и делаем data_check_string
+    data_check_string = "\n".join(
+        f"{k}={v}" for k, v in sorted(parsed_data.items())
+    )
 
-    expected_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
+    expected_hash = hmac.new(
+        BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256
+    ).hexdigest()
 
-    # 🔽 Временный вывод для отладки
-    print("✅ Parsed Data:", parsed_data)
     print("✅ Data Check String:\n", data_check_string)
     print("✅ Expected Hash:", expected_hash)
-    print("✅ Given Hash:", signature)
+    print("✅ Given Hash:", received_hash)
 
-    if expected_hash != signature:
-        raise ValueError("Invalid data: signature mismatch")
+    if expected_hash != received_hash:
+        raise ValueError("Invalid signature")
 
     return parsed_data
 
