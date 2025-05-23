@@ -34,7 +34,6 @@ load_dotenv()
 # Load the bot token from the .env file
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 BOT_TOKEN_SECRET = hashlib.sha256(BOT_TOKEN.encode()).digest()
-# Initialize FastAPI app
 
 def webapp_builder() -> InlineKeyboardBuilder:
     builder = InlineKeyboardBuilder()
