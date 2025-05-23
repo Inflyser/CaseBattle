@@ -120,8 +120,8 @@ def flatten_data(data):
 
 def verify_telegram_init_data(init_data: str) -> dict:
     parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
-    data_hash = parsed_data.pop("hash", None)  # берем hash вместо signature
-    if not data_hash:
+    signature = parsed_data.pop("hash", None)
+    if not signature:
         raise ValueError("Missing hash in init data")
 
     parsed_data = flatten_data(parsed_data)
@@ -129,8 +129,14 @@ def verify_telegram_init_data(init_data: str) -> dict:
 
     expected_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
 
-    if expected_hash != data_hash:
-        raise ValueError("Invalid data: hash mismatch")
+    # 🔽 Временный вывод для отладки
+    print("✅ Parsed Data:", parsed_data)
+    print("✅ Data Check String:\n", data_check_string)
+    print("✅ Expected Hash:", expected_hash)
+    print("✅ Given Hash:", signature)
+
+    if expected_hash != signature:
+        raise ValueError("Invalid data: signature mismatch")
 
     return parsed_data
 
