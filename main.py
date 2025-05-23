@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 import asyncio, os
 import hmac
 import hashlib
-
+import json
 
 
 from urllib.parse import parse_qsl
@@ -96,27 +96,41 @@ app.add_middleware(
 async def ping():
     return JSONResponse(content={"status": "ok", "message": "Backend is alive!"})
 
-
+def flatten_data(data):
+    """
+    Разворачивает вложенный JSON в ключи вида user.id=1423388201
+    Telegram требует именно такой формат для подписи.
+    """
+    items = []
+    for k, v in data.items():
+        if isinstance(v, str):
+            # Может быть JSON в строке? Попробуем распарсить
+            try:
+                parsed = json.loads(v)
+                if isinstance(parsed, dict):
+                    for sub_k, sub_v in parsed.items():
+                        items.append((f"{k}.{sub_k}", str(sub_v)))
+                    continue
+            except:
+                pass
+            items.append((k, v))
+        else:
+            items.append((k, str(v)))
+    return dict(items)
 
 def verify_telegram_init_data(init_data: str) -> dict:
-    from urllib.parse import parse_qsl
-    import hmac, hashlib
-
     parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
-    print("Parsed data:", parsed_data)
-    hash_from_telegram = parsed_data.pop("hash", None)
-    print("Hash from telegram:", hash_from_telegram)
-    if not hash_from_telegram:
-        raise ValueError("Missing hash in init data")
+    signature = parsed_data.pop("signature", None)
+    if not signature:
+        raise ValueError("Missing signature in init data")
 
+    parsed_data = flatten_data(parsed_data)
     data_check_string = "\n".join(f"{k}={v}" for k, v in sorted(parsed_data.items()))
-    print("Data check string:", data_check_string)
 
-    hmac_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
-    print("Calculated hmac hash:", hmac_hash)
+    expected_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
 
-    if hmac_hash != hash_from_telegram:
-        raise ValueError("Invalid data: hash mismatch")
+    if expected_hash != signature:
+        raise ValueError("Invalid data: signature mismatch")
 
     return parsed_data
 
