@@ -97,18 +97,17 @@ async def ping():
     return JSONResponse(content={"status": "ok", "message": "Backend is alive!"})
 
 
-def verify_telegram_init_data(init_data: str) -> dict:
-    """
-    Проверка подписи данных, полученных из Telegram WebApp (initData).
-    Возвращает словарь данных пользователя, если всё валидно.
-    """
+
+def verify_telegram_init_data(init_data: str, bot_token: str) -> dict:
     parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
     hash_from_telegram = parsed_data.pop("hash", None)
     if not hash_from_telegram:
         raise ValueError("Missing hash in init data")
 
     data_check_string = "\n".join(f"{k}={v}" for k, v in sorted(parsed_data.items()))
-    hmac_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
+
+    secret_key = hashlib.sha256(bot_token.encode()).digest()
+    hmac_hash = hmac.new(secret_key, data_check_string.encode(), hashlib.sha256).hexdigest()
 
     if hmac_hash != hash_from_telegram:
         raise ValueError("Invalid data: hash mismatch")
@@ -125,7 +124,7 @@ async def telegram_auth(request: Request, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=400, detail="No init_data")
 
     try:
-        user_data = verify_telegram_init_data(init_data)
+        user_data = verify_telegram_init_data(init_data, BOT_TOKEN_SECRET)
     except Exception as e:
         raise HTTPException(status_code=403, detail=f"Auth failed: {str(e)}")
 
