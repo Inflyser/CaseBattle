@@ -120,20 +120,19 @@ def flatten_data(data):
 
 def verify_telegram_init_data(init_data: str) -> dict:
     parsed_data = dict(parse_qsl(init_data, strict_parsing=True))
-    signature = parsed_data.pop("signature", None)
-    if not signature:
-        raise ValueError("Missing signature in init data")
+    data_hash = parsed_data.pop("hash", None)  # берем hash вместо signature
+    if not data_hash:
+        raise ValueError("Missing hash in init data")
 
     parsed_data = flatten_data(parsed_data)
     data_check_string = "\n".join(f"{k}={v}" for k, v in sorted(parsed_data.items()))
 
     expected_hash = hmac.new(BOT_TOKEN_SECRET, data_check_string.encode(), hashlib.sha256).hexdigest()
 
-    if expected_hash != signature:
-        raise ValueError("Invalid data: signature mismatch")
+    if expected_hash != data_hash:
+        raise ValueError("Invalid data: hash mismatch")
 
     return parsed_data
-
 
 
 @app.post("/auth/telegram")
